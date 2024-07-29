@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 #include "eigen_types.h"
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 #include "loss_function.h"
 
 namespace myslam {

@@ -4,17 +4,19 @@ project(vins_estimator)
 set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_CXX_FLAGS "-std=c++11")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g")
+set(CMAKE_MACOSX_RPATH ON)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+find_package(GLEW REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Ceres REQUIRED)
 find_package(Pangolin REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem program_options system)
 
-
-message(WARNING "OpenCV_VERSION: ${OpenCV_VERSION}")
+message(STATUS "OpenCV_VERSION: ${OpenCV_VERSION}")
+message(STATUS "EIGEN3_INCLUDE_DIR: ${EIGEN3_INCLUDE_DIR}")
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/include
@@ -39,7 +41,8 @@ add_library(camera_model SHARED
     src/camera_models/camera_models/ScaramuzzaCamera.cc
     src/camera_models/sparse_graph/Transform.cc
     src/camera_models/gpl/gpl.cc
-    src/camera_models/gpl/EigenQuaternionParameterization.cc)
+    # src/camera_models/gpl/EigenQuaternionParameterization.cc
+    )
 
 target_link_libraries(camera_model ${Boost_LIBRARIES} ${OpenCV_LIBS} ${CERES_LIBRARIES})
 
@@ -72,7 +75,8 @@ target_link_libraries(MyVio
   ${OpenCV_LIBS}  
   ${CERES_LIBRARIES}
 	${Pangolin_LIBRARIES}
-  camera_model)
+  camera_model
+  GLEW::GLEW)
 
 add_executable(run_euroc test/run_euroc.cpp)
 target_link_libraries(run_euroc 

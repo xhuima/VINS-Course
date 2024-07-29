@@ -7,10 +7,10 @@
 #include <thread>
 #include <iomanip>
 
-#include <cv.h>
+// #include <cv.h>
 #include <opencv2/opencv.hpp>
-#include <highgui.h>
-#include <eigen3/Eigen/Dense>
+// #include <opencv2/highgui.h>
+#include <Eigen/Dense>
 #include "System.h"
 
 using namespace std;
@@ -125,7 +125,7 @@ void DrawIMGandGLinMainThrd(){
 		}
 		//pSystem->PubImageData(dStampNSec / 1e9, img);
 		cv::Mat show_img;
-		cv::cvtColor(img, show_img, CV_GRAY2RGB);
+		cv::cvtColor(img, show_img, cv::COLOR_GRAY2RGB);
 		if (SHOW_TRACK)
 		{
 			for (unsigned int j = 0; j < pSystem->trackerData[0].cur_pts.size(); j++)
@@ -134,7 +134,7 @@ void DrawIMGandGLinMainThrd(){
 				cv::circle(show_img,  pSystem->trackerData[0].cur_pts[j], 2, cv::Scalar(255 * (1 - len), 0, 255 * len), 2);
 			}
 
-			cv::namedWindow("IMAGE", CV_WINDOW_AUTOSIZE);
+			cv::namedWindow("IMAGE", WINDOW_AUTOSIZE);
 			cv::imshow("IMAGE", show_img);
 		  // cv::waitKey(1);
 		}

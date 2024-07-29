@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 #include <iomanip>
 #include "backend/problem.h"
 #include "utility/tic_toc.h"
